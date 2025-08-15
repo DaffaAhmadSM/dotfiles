@@ -8,3 +8,4 @@ export PATH="/Users/macbookair/.composer/vendor/bin:$PATH"
 
 
 eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
