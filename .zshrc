@@ -1,4 +1,4 @@
-            _
+#            _
 #    _______| |__  _ __ ___
 #   |_  / __| '_ \| '__/ __|
 #  _ / /\__ \ | | | | | (__
@@ -45,3 +45,5 @@ source /usr/share/nvm/init-nvm.sh
 
 . "$HOME/.local/bin/env"
 eval "$(uv generate-shell-completion zsh)"
+
+[[ -s "/home/dapra/.gvm/scripts/gvm" ]] && source "/home/dapra/.gvm/scripts/gvm"
