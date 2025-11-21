@@ -11,7 +11,11 @@
     "modules-center": ["hyprland/window"],
     "modules-right": ["tray", "backlight", "custom/notification", "pulseaudio", "network", "battery", "clock", "custom/power-menu"],
     "custom/hypridle": {
-        "format": "",
+        "format": "{icon}",
+        "format-icons": {
+            "notactive": "",
+            "active": ""
+        },
         "return-type": "json",
         "escape": true,
         "exec-on-event": true,
@@ -132,7 +136,7 @@
     },
 
     "custom/power-menu": {
-        "format": " <span color='#6a92d7'>⏻ </span>",
+        "format": " ⏻ ",
         "on-click": "~/.config/waybar/scripts/wlogout.sh",
         "on-click-right": "hyprlock",
         "tooltip-format": "Left: Power menu\nRight: Lock screen"
