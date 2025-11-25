@@ -1,9 +1,9 @@
 #!/bin/bash
-#  _      __     ____                      
+#  _      __     ____
 # | | /| / /__ _/ / /__  ___ ____  ___ ____
 # | |/ |/ / _ `/ / / _ \/ _ `/ _ \/ -_) __/
-# |__/|__/\_,_/_/_/ .__/\_,_/ .__/\__/_/   
-#                /_/       /_/             
+# |__/|__/\_,_/_/_/ .__/\_,_/ .__/\__/_/
+#                /_/       /_/
 
 # Source library.sh
 source $HOME/.config/ml4w/library.sh
@@ -76,13 +76,14 @@ _writeLog "Setting wallpaper with source image $wallpaper"
 tmpwallpaper=$wallpaper
 
 # -----------------------------------------------------
-# Copy path of current wallpaper to cache file
+# Copy path of current wallpaper to cache fil
+# e
 # -----------------------------------------------------
 
 if [ ! -f $cachefile ]; then
     touch $cachefile
 fi
-echo "$wallpaper" > $cachefile
+echo "$used_wallpaper" > $cachefile
 _writeLog "Path of current wallpaper copied to $cachefile"
 
 # -----------------------------------------------------
@@ -96,62 +97,48 @@ _writeLog "Wallpaper Filename: $wallpaperfilename"
 # Wallpaper Effects
 # -----------------------------------------------------
 
-if [ -f $wallpapereffect ]; then
-    effect=$(cat $wallpapereffect)
-    if [ ! "$effect" == "off" ]; then
-        used_wallpaper=$generatedversions/$effect-$wallpaperfilename
-        if [ -f $generatedversions/$effect-$wallpaperfilename ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ]; then
-            _writeLog "Use cached wallpaper $effect-$wallpaperfilename"
-        else
-            _writeLog "Generate new cached wallpaper $effect-$wallpaperfilename with effect $effect"
-            notify-send --replace-id=1 "Using wallpaper effect $effect..." "with image $wallpaperfilename" -h int:value:33
-            source $HOME/.config/hypr/effects/wallpaper/$effect
-        fi
-        _writeLog "Loading wallpaper $generatedversions/$effect-$wallpaperfilename with effect $effect"
-        _writeLog "Setting wallpaper with $used_wallpaper"
-        touch $waypaperrunning
-        waypaper --wallpaper $used_wallpaper
-    else
-        _writeLog "Wallpaper effect is set to off"
-    fi
-else
-    effect="off"
-fi
+# if [ -f $wallpapereffect ]; then
+#     effect=$(cat $wallpapereffect)
+#     if [ ! "$effect" == "off" ]; then
+#         used_wallpaper=$generatedversions/$effect-$wallpaperfilename
+#         if [ -f $generatedversions/$effect-$wallpaperfilename ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ]; then
+#             _writeLog "Use cached wallpaper $effect-$wallpaperfilename"
+#         else
+#             _writeLog "Generate new cached wallpaper $effect-$wallpaperfilename with effect $effect"
+#             notify-send --replace-id=1 "Using wallpaper effect $effect..." "with image $wallpaperfilename" -h int:value:33
+#             source $HOME/.config/hypr/effects/wallpaper/$effect
+#         fi
+#         _writeLog "Loading wallpaper $generatedversions/$effect-$wallpaperfilename with effect $effect"
+#         _writeLog "Setting wallpaper with $used_wallpaper"
+#         touch $waypaperrunning
+#         waypaper --wallpaper $used_wallpaper
+#     else
+#         _writeLog "Wallpaper effect is set to off"
+#     fi
+# else
+#     effect="off"
+# fi
 
 # -----------------------------------------------------
 # Execute matugen
 # -----------------------------------------------------
 
 _writeLog "Execute matugen with $used_wallpaper"
-$HOME/.local/bin/matugen image $used_wallpaper -m "dark"
+matugen image $used_wallpaper -m "dark"
 
 # -----------------------------------------------------
 # Execute wallust
 # -----------------------------------------------------
 
 _writeLog "Execute wallust with $used_wallpaper"
-$HOME/.local/bin/wallust run $used_wallpaper
-
-# -----------------------------------------------------
-# Reload Waybar
-# -----------------------------------------------------
-
-sleep 1
-$HOME/.config/waybar/launch.sh
+wallust run $used_wallpaper
 
 # -----------------------------------------------------
 # Reload nwg-dock-hyprland
 # -----------------------------------------------------
 
-$HOME/.config/nwg-dock-hyprland/launch.sh &
+#$HOME/.config/nwg-dock-hyprland/launch.sh &
 
-# -----------------------------------------------------
-# Update Pywalfox
-# -----------------------------------------------------
-
-if type pywalfox >/dev/null 2>&1; then
-    pywalfox update
-fi
 
 # -----------------------------------------------------
 # Update SwayNC
@@ -164,34 +151,34 @@ swaync-client -rs
 # Created blurred wallpaper
 # -----------------------------------------------------
 
-if [ -f $generatedversions/blur-$blur-$effect-$wallpaperfilename.png ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ]; then
-    _writeLog "Use cached wallpaper blur-$blur-$effect-$wallpaperfilename"
-else
-    _writeLog "Generate new cached wallpaper blur-$blur-$effect-$wallpaperfilename with blur $blur"
-    # notify-send --replace-id=1 "Generate new blurred version" "with blur $blur" -h int:value:66
-    magick $used_wallpaper -resize 75% $blurredwallpaper
-    _writeLog "Resized to 75%"
-    if [ ! "$blur" == "0x0" ]; then
-        magick $blurredwallpaper -blur $blur $blurredwallpaper
-        cp $blurredwallpaper $generatedversions/blur-$blur-$effect-$wallpaperfilename.png
-        _writeLog "Blurred"
-    fi
-fi
-cp $generatedversions/blur-$blur-$effect-$wallpaperfilename.png $blurredwallpaper
+# if [ -f $generatedversions/blur-$blur-$effect-$wallpaperfilename.png ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ]; then
+#     _writeLog "Use cached wallpaper blur-$blur-$effect-$wallpaperfilename"
+# else
+#     _writeLog "Generate new cached wallpaper blur-$blur-$effect-$wallpaperfilename with blur $blur"
+#     # notify-send --replace-id=1 "Generate new blurred version" "with blur $blur" -h int:value:66
+#     magick $used_wallpaper -resize 75% $blurredwallpaper
+#     _writeLog "Resized to 75%"
+#     if [ ! "$blur" == "0x0" ]; then
+#         magick $blurredwallpaper -blur $blur $blurredwallpaper
+#         cp $blurredwallpaper $generatedversions/blur-$blur-$effect-$wallpaperfilename.png
+#         _writeLog "Blurred"
+#     fi
+# fi
+# cp $generatedversions/blur-$blur-$effect-$wallpaperfilename.png $blurredwallpaper
 
 # -----------------------------------------------------
 # Create rasi file
 # -----------------------------------------------------
 
-if [ ! -f $rasifile ]; then
-    touch $rasifile
-fi
-echo "* { current-image: url(\"$blurredwallpaper\", height); }" >"$rasifile"
+# if [ ! -f $rasifile ]; then
+#     touch $rasifile
+# fi
+# echo "* { current-image: url(\"$blurredwallpaper\", height); }" >"$rasifile"
 
 # -----------------------------------------------------
 # Created square wallpaper
 # -----------------------------------------------------
 
-_writeLog "Generate new cached wallpaper square-$wallpaperfilename"
-magick $tmpwallpaper -gravity Center -extent 1:1 $squarewallpaper
-cp $squarewallpaper $generatedversions/square-$wallpaperfilename.png
+# _writeLog "Generate new cached wallpaper square-$wallpaperfilename"
+# magick $tmpwallpaper -gravity Center -extent 1:1 $squarewallpaper
+# cp $squarewallpaper $generatedversions/square-$wallpaperfilename.png
