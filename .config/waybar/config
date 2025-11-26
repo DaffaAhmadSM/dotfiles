@@ -154,7 +154,7 @@
             "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
         "none": "",
         "dnd-notification":
-            "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
+            "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
         "dnd-none": "",
         "inhibited-notification":
             "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
