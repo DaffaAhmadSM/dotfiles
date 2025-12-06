@@ -28,16 +28,12 @@ eval "$(zoxide init zsh)"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm, without auto-using the default version
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="$PATH:$HOME/go/bin" #import golang bin
 
-
-export PATH="$HOME/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
 
 #ALIAS
-
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
-
-
+alias docker='sudo docker'
 #Source
 source /usr/share/nvm/init-nvm.sh
 
@@ -47,3 +43,4 @@ source /usr/share/nvm/init-nvm.sh
 eval "$(uv generate-shell-completion zsh)"
 
 [[ -s "/home/dapra/.gvm/scripts/gvm" ]] && source "/home/dapra/.gvm/scripts/gvm"
+eval "$(mise activate zsh)"
