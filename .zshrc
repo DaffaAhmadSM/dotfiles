@@ -44,3 +44,11 @@ eval "$(uv generate-shell-completion zsh)"
 
 [[ -s "/home/dapra/.gvm/scripts/gvm" ]] && source "/home/dapra/.gvm/scripts/gvm"
 eval "$(mise activate zsh)"
+
+# bun completions
+[ -s "/home/dapra/.bun/_bun" ] && source "/home/dapra/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH=$PATH:$HOME/go/bin
