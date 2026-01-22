@@ -34,6 +34,7 @@ export PATH="$PATH:$HOME/go/bin" #import golang bin
 #ALIAS
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias docker='sudo docker'
+alias s='yay -Ss'
 #Source
 source /usr/share/nvm/init-nvm.sh
 
