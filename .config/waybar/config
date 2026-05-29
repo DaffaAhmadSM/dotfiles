@@ -30,6 +30,17 @@
         "active-only": false,
         "all-outputs": true,
         "on-click": "activate",
+        "workspace-taskbar": {
+            // Enable the workspace taskbar. Default: false
+            "enable": true,
+
+            // Format of the windows in the taskbar. Default: "{icon}". Allowed variables: {icon}, {title}
+            "format": "{icon} {title:.20}",
+            "icon-size": 16,
+            "orientation": "horizontal",
+            "ignore-list": [ "code", "Firefox - .*" ],
+            "on-click-window": "./scripts/focuswindow.sh {address} {button}"
+        },
         "format-icons": {
             "1": "一",
             "2": "二",

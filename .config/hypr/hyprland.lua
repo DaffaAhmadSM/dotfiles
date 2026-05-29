@@ -1,15 +1,3 @@
--- This is an example Hyprland Lua config file.
--- Refer to the wiki for more information.
--- https://wiki.hypr.land/Configuring/Start/
-
--- Please note not all available settings / options are set here.
--- For a full list, see the wiki
-
--- You can (and should!!) split this configuration into multiple files
--- Create your files separately and then require them like this:
--- require("myColors")
-
-
 ------------------
 ---- MONITORS ----
 ------------------
@@ -32,22 +20,6 @@ local terminal    = "alacritty"
 local fileManager = "nemo"
 local menu        = "hyprlauncher"
 local browser     = "helium-browser"
-
-
--------------------
----- AUTOSTART ----
--------------------
-
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
---
--- hl.on("hyprland.start", function ()
---   hl.exec_cmd(terminal)
---   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
--- end)
 
 
 -------------------------------
@@ -85,13 +57,14 @@ hl.env("EGL_PLATFORM", "wayland")
 hl.config({
   ecosystem = {
     enforce_permissions = true,
-  },
+    },
+  binds = { workspace_back_and_forth = true }
 })
 
 
 -- hl.permission("/usr/(bin|local/bin)/grim", "screencopy", "allow")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
--- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
+hl.permission({binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = "allow"})
 hl.permission({ binary = "power-button", type = "keyboard", mode = "allow" })
 hl.permission({ binary = "keyd-virtual-keyboard", type = "keyboard", mode = "allow" })
 hl.permission({ binary = ".*", type = "keyboard", mode = "deny" })
@@ -114,8 +87,6 @@ hl.config({
             active_border   = "rgba(1a1249ff)",
             inactive_border = "rgba(e5e1e9ff)",
         },
-
-        -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = true,
 
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
@@ -180,22 +151,6 @@ hl.animation({ leaf = "workspaces",       enabled = false, speed = 0.3, bezier =
 hl.animation({ leaf = "specialWorkspace", enabled = true,  speed = 2.3, bezier = "md3_decel",  style = "slidefadevert 15%" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
--- "Smart gaps" / "No gaps when only"
--- uncomment all if you wish to use that.
--- hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
--- hl.workspace_rule({ workspace = "f[1]",   gaps_out = 0, gaps_in = 0 })
--- hl.window_rule({
---     name  = "no-gaps-wtv1",
---     match = { float = false, workspace = "w[tv1]" },
---     border_size = 0,
---     rounding    = 0,
--- })
--- hl.window_rule({
---     name  = "no-gaps-f1",
---     match = { float = false, workspace = "f[1]" },
---     border_size = 0,
---     rounding    = 0,
--- })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
@@ -276,6 +231,7 @@ hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
@@ -443,9 +399,9 @@ hl.window_rule {
 -- screenshare
 hl.window_rule {
     name = "no screenshare",
-    no_screen_share = true,
+    no_screen_share = false,
     match = {
-        class = "^(obs|obsidian|obs-studio|discord)$"
+        class = "^(obs|obs-studio|discord)$"
     },
 }
 
@@ -470,3 +426,45 @@ hl.on("hyprland.start", function ()
 
     hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")
 end)
+
+-----------------
+---- PLUGINS ----
+-----------------
+
+hl.config { plugin = { dynamic_cursors = {
+
+    enabled = true,
+    mode = "stretch",
+    threshold = 1,
+    tilt = {
+            limit = 6000,
+            activation = "negative_quadratic",
+            window = 100,
+            full = 50,
+        },
+    stretch = {
+            limit = 1000,
+            activation = "quadratic",
+            window = 100,
+        },
+    shake = {
+        enabled = true,
+        threshold = 6.0,
+        base = 4.0,
+        speed = 4.0,
+        influence = 0.0,
+        limit = 0.0,
+        timeout = 2000,
+        effects = false,
+        ipc = true,
+    },
+
+    -- use hyprcursor to get a higher resolution texture when the cursor is magnified
+    -- see the `hyprcursor` section below
+    hyprcursor = {
+        nearest = 1,
+        enabled = true,
+        resolution = -1,
+        fallback = "clientside",
+    },
+}}}
