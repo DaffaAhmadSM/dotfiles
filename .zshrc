@@ -22,21 +22,15 @@ else
     for f in ~/.config/zshrc/*; do source $f; done
 fi
 
-
 eval "$(zoxide init zsh)"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm, without auto-using the default version
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH="$PATH:$HOME/go/bin" #import golang bin
-
 
 #ALIAS
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias docker='sudo docker'
-alias s='yay -Ss'
+alias s='paru -Ss'
 #Source
-source /usr/share/nvm/init-nvm.sh
 
 #use
 
@@ -53,3 +47,11 @@ eval "$(mise activate zsh)"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$PATH:$HOME/go/bin
+
+# pnpm
+export PNPM_HOME="/home/dapra/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
