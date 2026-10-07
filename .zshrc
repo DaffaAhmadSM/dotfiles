@@ -30,6 +30,8 @@ export PATH="$PATH:$HOME/go/bin" #import golang bin
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias docker='sudo docker'
 alias s='paru -Ss'
+alias container-run= 'z container && ./start.sh && z -'
+alias reload='source ~/.zshrc'
 #Source
 
 #use
@@ -51,7 +53,10 @@ export PATH=$PATH:$HOME/go/bin
 # pnpm
 export PNPM_HOME="/home/dapra/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
+
+# opencode
+export PATH=/home/dapra/.opencode/bin:$PATH

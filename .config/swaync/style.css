@@ -62,6 +62,27 @@
     margin: 3px -2px 3px 0;
 }
 
+/* Hermes notifications — bold and bright */
+#Hermes.notification-row {
+    border: 3px solid #7e9cd8;
+    border-left: 6px solid #7e9cd8;
+    background: rgba(126, 156, 216, 0.08);
+}
+
+#Hermes.notification-row .summary {
+    font-size: 18px;
+    color: #7e9cd8;
+}
+
+#Hermes.notification-row .body {
+    font-size: 16px;
+}
+
+#Hermes.notification-row .notification-icon {
+    border: 2px solid #7e9cd8;
+    border-radius: 12px;
+}
+
 .close-button {
     background: @red-base;
     color: @cc-bg;
