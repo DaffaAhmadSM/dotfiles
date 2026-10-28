@@ -19,11 +19,11 @@ hl.monitor({
 })
 
 ---------------------
----- MY PROGRAMS ----
+---- MY PROGRAMS ----z
 ---------------------
 
 -- Set programs that you use
-local terminal = "ghostty"
+local terminal = "kitty"
 local fileManager = "nemo"
 local menu = "hyprlauncher"
 local browser = "brave-origin --no-proxy-server"
@@ -43,13 +43,7 @@ hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
-hl.env("GBM_BACKEND", "nvidia-drm")
-hl.env("SDL_VIDEODRIVER", "wayland")
-hl.env("__NV_PRIME_RENDER_OFFLOAD", "0")
-hl.env("WLR_NO_HARDWARE_CURSORS", "1")
-hl.env("WLR_RENDERER_ALLOW_SOFTWARE", "1")
-hl.env("EGL_PLATFORM", "wayland")
-hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+hl.env("NVD_BACKEND", "direct")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -238,7 +232,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("zennotes"))
-hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("zed"))
+hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("LOCAL_NOTEBOOK_DEV=1 zed"))
 
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
@@ -397,6 +391,13 @@ hl.window_rule({
 	float = true,
 	match = {
 		class = "(?i).*(Pavucontrol|Blueman-manager|nm-connection-editor|qalculate-gtk|Pygame window).*",
+	},
+})
+
+hl.window_rule({
+	float = true,
+	match = {
+		class = "waypaper",
 	},
 })
 

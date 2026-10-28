@@ -9,7 +9,7 @@
 sleep 1
 clear
 figlet -f smslant "Timeshift"
-aur_helper="$(cat ~/.config/ml4w/settings/aur.sh)"
+aur_helper=$(command -v yay || command -v paru)
 
 _isInstalledAUR() {
     package="$1"

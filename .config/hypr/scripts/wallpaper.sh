@@ -1,4 +1,7 @@
 #!/bin/bash
+
+_writeLog() { echo ":: $1"; }
+
 #  _      __     ____
 # | | /| / /__ _/ / /__  ___ ____  ___ ____
 # | |/ |/ / _ `/ / / _ \/ _ `/ _ \/ -_) __/
@@ -37,7 +40,6 @@ cachefile="$cache_folder/current_wallpaper"
 blurredwallpaper="$cache_folder/blurred_wallpaper.png"
 squarewallpaper="$cache_folder/square_wallpaper.png"
 rasifile="$cache_folder/current_wallpaper.rasi"
-defaultwallpaper="$HOME/.config/ml4w/wallpapers/default.jpg"
 blur="0x10"
 
 # -----------------------------------------------------
@@ -55,6 +57,18 @@ used_wallpaper=$wallpaper
 _writeLog "Setting wallpaper with source image $wallpaper"
 tmpwallpaper=$wallpaper
 
+
+# -----------------------------------------------------
+# Skip video wallpapers (handled by gslapper/mpvpaper)
+# -----------------------------------------------------
+
+case "${wallpaper,,}" in
+    *.mp4|*.mkv|*.webm|*.mov|*.avi|*.m4v|*.flv|*.wmv|*.mpg|*.mpeg|*.ogv)
+        _writeLog "Video wallpaper detected - skipping image processing"
+        exit 0
+        ;;
+esac
+
 # -----------------------------------------------------
 # Copy path of current wallpaper to cache fil
 # e
@@ -65,6 +79,8 @@ if [ ! -f $cachefile ]; then
 fi
 echo "$used_wallpaper" > $cachefile
 _writeLog "Path of current wallpaper copied to $cachefile"
+
+
 
 # -----------------------------------------------------
 # Get wallpaper filename

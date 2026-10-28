@@ -52,15 +52,3 @@ echo
 echo ":: Installing printer system complete"
 sleep 2
 
-if [ -f ~/.config/ml4w/settings/printer-drivers.sh ]; then
-    if gum confirm "DO YOU WANT TO INSTALL PRINTER DRIVERS NOW?"; then
-        echo
-        echo ":: Install started."
-    elif [ $? -eq 130 ]; then
-        exit 130
-    else
-        echo
-        echo ":: Install cancelled."
-        exit
-    fi
-fi
